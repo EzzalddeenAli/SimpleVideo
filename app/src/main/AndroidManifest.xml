@@ -31,7 +31,7 @@
         </activity>
 
         <activity
-            android:name=".module.MainActivity"
+            android:name=".module.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- 应用统计服务 -->

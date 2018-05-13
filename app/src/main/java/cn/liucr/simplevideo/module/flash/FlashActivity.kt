@@ -10,11 +10,10 @@ import android.support.v7.app.AppCompatActivity
 import cn.liucr.simplevideo.R
 import cn.liucr.simplevideo.http.ApiConstant
 import cn.liucr.simplevideo.http.SohuHttpManager
-import cn.liucr.simplevideo.module.MainActivity
+import cn.liucr.simplevideo.module.main.MainActivity
 import com.liucr.mvvmhelper.utils.LogUtil
 import com.sohuvideo.api.SohuPlayerSDK
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 
 
@@ -47,7 +46,7 @@ class FlashActivity : AppCompatActivity() {
         SohuPlayerSDK.init(applicationContext)
         startActivity(Intent(this, MainActivity::class.java))
         supportFinishAfterTransition()
-        text()
+//        text()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {

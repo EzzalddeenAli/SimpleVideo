@@ -19,6 +19,10 @@ public class BaseViewModel extends AndroidViewModel implements LifecycleObserver
         super(application);
     }
 
+    protected void onBackPressed() {
+
+    }
+
     @Override
     protected void onCleared() {
         super.onCleared();

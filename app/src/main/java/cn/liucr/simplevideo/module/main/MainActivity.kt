@@ -1,5 +1,7 @@
 package cn.liucr.simplevideo.module.main
 
+import android.arch.lifecycle.LifecycleService
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -7,29 +9,38 @@ import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import cn.liucr.simplevideo.R
 import cn.liucr.simplevideo.adapter.BaseFragmentAdapter
 import cn.liucr.simplevideo.databinding.ActivityMainBinding
+import cn.liucr.simplevideo.mode.sohu.FirstCate
 import cn.liucr.simplevideo.module.main.viewmodel.MainViewModel
 import com.liucr.mvvmhelper.base.BaseFragment
 import com.liucr.mvvmhelper.base.BaseVmActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : BaseVmActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var mainBinding: ActivityMainBinding
+    private lateinit var mainViewModel: MainViewModel
+
     private lateinit var fragmentAdapter: BaseFragmentAdapter<BaseFragment>
+    private var categoryFragmentList: ArrayList<BaseFragment> = ArrayList()
+    private var categoryNameList: ArrayList<CharSequence> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mainBinding.setLifecycleOwner(this)
-        mainBinding.viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        lifecycle.addObserver(mainViewModel)
+
+        mainBinding.viewModel = mainViewModel
 
         setSupportActionBar(toolbar)
         initViewPager()
@@ -47,10 +58,28 @@ class MainActivity : BaseVmActivity(), NavigationView.OnNavigationItemSelectedLi
         nav_view.setNavigationItemSelectedListener(this)
     }
 
+    /**
+     * 初始化viewPager相关东西
+     */
     private fun initViewPager() {
         fragmentAdapter = BaseFragmentAdapter(supportFragmentManager)
+        mainViewPager.adapter = fragmentAdapter
+        mainTabLayout.setupWithViewPager(mainViewPager)
 
-//        mainBinding.mainTabLayout
+        mainViewModel.firstCateList.observe(this, Observer<List<FirstCate>> {
+
+            categoryFragmentList.clear()
+            categoryNameList.clear()
+
+            it?.forEach {
+                var categoryFragment = CategoryFragment1.createCategoryFragment(it)
+                categoryFragmentList.add(categoryFragment)
+                categoryNameList.add(it.cate_name)
+            }
+
+            fragmentAdapter.setData(categoryFragmentList, categoryNameList)
+            fragmentAdapter.notifyDataSetChanged()
+        })
     }
 
     override fun onBackPressed() {
@@ -103,4 +132,5 @@ class MainActivity : BaseVmActivity(), NavigationView.OnNavigationItemSelectedLi
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
+
 }

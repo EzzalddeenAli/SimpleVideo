@@ -1,10 +1,12 @@
 package cn.liucr.simplevideo.mode.sohu;
 
+import java.io.Serializable;
+
 /**
  * Created by liucr on 2017/3/14.
  */
 
-public class FirstCate {
+public class FirstCate implements Serializable{
 
 
     /**

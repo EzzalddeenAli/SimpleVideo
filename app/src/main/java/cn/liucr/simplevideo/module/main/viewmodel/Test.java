@@ -5,6 +5,9 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.support.annotation.Nullable;
 
+import com.liucr.mvvmhelper.base.BaseFragment;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.liucr.simplevideo.mode.sohu.FirstCate;
@@ -14,15 +17,10 @@ import cn.liucr.simplevideo.mode.sohu.FirstCate;
  */
 public class Test {
 
-    private MutableLiveData<List<FirstCate>> mMutableLiveData = new MutableLiveData<>();
+    private List<BaseFragment> mBaseFragments = new ArrayList<>();
 
     private Test(String s) {
-        mMutableLiveData.observe(new LifecycleService(), new Observer<List<FirstCate>>() {
-            @Override
-            public void onChanged(@Nullable List<FirstCate> firstCates) {
 
-            }
-        });
     }
 
     public static Test createTest(String s) {

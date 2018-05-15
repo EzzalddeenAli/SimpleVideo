@@ -1,12 +1,8 @@
 package cn.liucr.simplevideo.module.main
 
-import android.arch.lifecycle.LifecycleService
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
-import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
+import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Menu
@@ -22,26 +18,27 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
-class MainActivity : BaseVmActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseVmActivity<ActivityMainBinding>(), NavigationView.OnNavigationItemSelectedListener {
 
-    private lateinit var mainBinding: ActivityMainBinding
     private lateinit var mainViewModel: MainViewModel
 
-    private lateinit var fragmentAdapter: BaseFragmentAdapter<BaseFragment>
-    private var categoryFragmentList: ArrayList<BaseFragment> = ArrayList()
+    private lateinit var fragmentAdapter: BaseFragmentAdapter<BaseFragment<*>>
+    private var categoryFragmentList: ArrayList<BaseFragment<*>> = ArrayList()
     private var categoryNameList: ArrayList<CharSequence> = ArrayList()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun contentView(): Int {
+        return R.layout.activity_main
+    }
 
-        mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        mainBinding.setLifecycleOwner(this)
+    override fun initViewModel() {
+        mainViewModel = getViewModel(MainViewModel::class.java, null)
+    }
 
-        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        lifecycle.addObserver(mainViewModel)
+    override fun dataBinding() {
+        binding.viewModel = mainViewModel
+    }
 
-        mainBinding.viewModel = mainViewModel
-
+    override fun initView() {
         setSupportActionBar(toolbar)
         initViewPager()
 
@@ -62,24 +59,30 @@ class MainActivity : BaseVmActivity(), NavigationView.OnNavigationItemSelectedLi
      * 初始化viewPager相关东西
      */
     private fun initViewPager() {
-        fragmentAdapter = BaseFragmentAdapter(supportFragmentManager)
-        mainViewPager.adapter = fragmentAdapter
         mainTabLayout.setupWithViewPager(mainViewPager)
+        fragmentAdapter = BaseFragmentAdapter(supportFragmentManager, categoryFragmentList, categoryNameList)
+        mainViewPager.adapter = fragmentAdapter
 
         mainViewModel.firstCateList.observe(this, Observer<List<FirstCate>> {
-
-            categoryFragmentList.clear()
-            categoryNameList.clear()
-
-            it?.forEach {
-                var categoryFragment = CategoryFragment1.createCategoryFragment(it)
-                categoryFragmentList.add(categoryFragment)
-                categoryNameList.add(it.cate_name)
+            if (it != null) {
+                setPagerFragment(it)
             }
-
-            fragmentAdapter.setData(categoryFragmentList, categoryNameList)
-            fragmentAdapter.notifyDataSetChanged()
         })
+    }
+
+    /**
+     * 装载分类页面
+     */
+    private fun setPagerFragment(firstCateList: List<FirstCate>) {
+        categoryFragmentList.clear()
+        categoryNameList.clear()
+
+        firstCateList.forEach {
+            val categoryFragment = CategoryFragment.createCategoryFragment(it)
+            categoryFragmentList.add(categoryFragment)
+            categoryNameList.add(it.cate_name)
+        }
+        fragmentAdapter.notifyDataSetChanged()
     }
 
     override fun onBackPressed() {
@@ -101,7 +104,7 @@ class MainActivity : BaseVmActivity(), NavigationView.OnNavigationItemSelectedLi
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
-            R.id.action_settings -> return true
+            R.id.action_search -> return true
             else -> return super.onOptionsItemSelected(item)
         }
     }

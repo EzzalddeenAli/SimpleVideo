@@ -1,7 +1,7 @@
 package cn.liucr.simplevideo.adapter;
 
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.liucr.mvvmhelper.base.BaseFragment;
 
@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *          第一个构造函数为 FragmentPagerAdapter 常用的构造方式。
  *          第二个构造函数更适合与 ViewPager 搭配使用的控件，如{@link android.support.design.widget.TabLayout}
  */
-public class BaseFragmentAdapter<T extends BaseFragment> extends FragmentPagerAdapter {
+public class BaseFragmentAdapter<T extends BaseFragment> extends FragmentStatePagerAdapter {
     private ArrayList<T> fragList; // 碎片集合
     private ArrayList<CharSequence> fragTags; // 碎片tag集合
 

@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import cn.liucr.simplevideo.R
-import cn.liucr.simplevideo.http.ApiConstant
 import cn.liucr.simplevideo.http.SohuHttpManager
 import cn.liucr.simplevideo.module.main.MainActivity
 import com.liucr.mvvmhelper.utils.LogUtil
@@ -65,7 +64,7 @@ class FlashActivity : AppCompatActivity() {
 
     @SuppressLint("CheckResult")
     private fun text() {
-        SohuHttpManager.getDouBanApi().getFirstCate(ApiConstant.API_KEY)
+        SohuHttpManager.sohuApi.firstCate
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

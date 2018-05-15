@@ -1,7 +1,6 @@
 package com.liucr.bindinglibrary.bindingadapter;
 
 import android.databinding.BindingAdapter;
-import android.databinding.adapters.ListenerUtil;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;

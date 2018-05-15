@@ -12,10 +12,10 @@
 
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="160dp">
 
         <android.support.v7.widget.AppCompatImageView
-            image="@{channelVideo.ver_pic}"
+            image="@{channelVideo.ver_high_pic}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"

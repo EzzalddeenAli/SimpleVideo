@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,6 @@ public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         binding = DataBindingUtil.inflate(inflater, contentView(), container, false);
         binding.setLifecycleOwner(this);
         dataBinding();
@@ -42,6 +42,7 @@ public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment {
     public abstract void initView();
 
     protected <T extends BaseViewModel> T getViewModel(@NonNull Class<T> modelClass, @Nullable ViewModelProvider.Factory factory) {
+        Log.e("getViewModel", this.toString());
         T t = ViewModelProviders.of(this, factory).get(modelClass);
         getLifecycle().addObserver(t);
         return t;

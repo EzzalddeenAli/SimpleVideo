@@ -14,18 +14,18 @@ import com.liucr.mvvmhelper.base.BaseFragment
 
 class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
 
-    private lateinit var categoryViewModel: CategoryViewModel
+    private var categoryViewModel: CategoryViewModel? = null
 
     override fun contentView(): Int {
         return R.layout.fragment_category
     }
 
     override fun initViewModel() {
-
-        val firstCate = arguments?.getSerializable(Constant.FIRST_CATE)
-
-        categoryViewModel = getViewModel(CategoryViewModel::class.java, null)
-        categoryViewModel.firstCate = firstCate as FirstCate
+        if (categoryViewModel == null) {
+            val firstCate = arguments?.getSerializable(Constant.FIRST_CATE)
+            categoryViewModel = getViewModel(CategoryViewModel::class.java, null)
+            categoryViewModel?.firstCate = firstCate as FirstCate
+        }
     }
 
     override fun dataBinding() {
@@ -46,4 +46,5 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
             return categoryFragment
         }
     }
+
 }

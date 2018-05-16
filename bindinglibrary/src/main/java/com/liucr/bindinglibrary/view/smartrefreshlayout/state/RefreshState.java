@@ -1,4 +1,4 @@
-package com.liucr.bindinglibrary.view.smartrefreshlayout;
+package com.liucr.bindinglibrary.view.smartrefreshlayout.state;
 
 /**
  * Created by liucr on 2018/5/9.

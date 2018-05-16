@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -9,6 +10,10 @@
             type="cn.liucr.simplevideo.module.main.viewmodel.CategoryViewModel" />
 
         <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
+
+        <import type="com.liucr.bindinglibrary.viewmodel.state.StateViewModel" />
+
+        <import type="android.view.View" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -30,12 +35,20 @@
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="@{viewModel.stateViewModel.viewState == StateViewModel.State.STATE_CONTENT ? View.VISIBLE : View.GONE}"
+                app:gridDecoration="@{5}"
                 app:itemBinding="@{viewModel.itemBinding}"
                 app:items="@{viewModel.items}"
-                app:gridDecoration="@{5}"
                 app:layoutManager="@{LayoutManagers.grid(2)}">
 
             </android.support.v7.widget.RecyclerView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="@{viewModel.stateViewModel.viewState == StateViewModel.State.STATE_CONTENT ? View.GONE : View.VISIBLE}"
+                android:background="@color/colorAccent"/>
+
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
     </android.support.constraint.ConstraintLayout>

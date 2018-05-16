@@ -2,8 +2,8 @@ package com.liucr.bindinglibrary.bindingadapter;
 
 import android.databinding.BindingAdapter;
 
-import com.liucr.bindinglibrary.view.smartrefreshlayout.LoadMoreState;
-import com.liucr.bindinglibrary.view.smartrefreshlayout.RefreshState;
+import com.liucr.bindinglibrary.view.smartrefreshlayout.state.LoadMoreState;
+import com.liucr.bindinglibrary.view.smartrefreshlayout.state.RefreshState;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="stateViewModel"
+            type="com.liucr.bindinglibrary.viewmodel.state.StateViewModel" />
+
+        <import type="android.view.View" />
+
+        <import type="com.liucr.bindinglibrary.viewmodel.state.StateViewModel.State" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="@{stateViewModel.viewState == State.STATE_EMPTY ? View.VISIBLE : View.GONE}"
+        tools:visibility="gone">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher_round"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.4" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guideline"
+            app:text="@{stateViewModel.viewEmptyContent}"
+            tools:text="error" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

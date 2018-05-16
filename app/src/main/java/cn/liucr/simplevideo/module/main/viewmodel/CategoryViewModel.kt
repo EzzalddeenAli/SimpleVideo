@@ -1,5 +1,6 @@
 package cn.liucr.simplevideo.module.main.viewmodel
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableArrayList
@@ -39,6 +40,7 @@ class CategoryViewModel(application: Application) : RecyclerViewModel(applicatio
         super.onCreate()
         if (channelVideoList.size == 0) {
             getVideo()
+            refreshState.value = RefreshState.REFRESH_TRIGGER
         }
     }
 
@@ -58,6 +60,7 @@ class CategoryViewModel(application: Application) : RecyclerViewModel(applicatio
         getVideo()
     }
 
+    @SuppressLint("CheckResult")
     private fun getVideo() {
 
         SohuHttpManager.sohuApi.getChannel(firstCate.cate_id, 1, 10, page, 1, null)
@@ -72,7 +75,10 @@ class CategoryViewModel(application: Application) : RecyclerViewModel(applicatio
                     loadMoreState.value = LoadMoreState.LOAD_MORE_COMPLETE
                     stateViewModel.viewState.value = StateViewModel.State.STATE_CONTENT
                 }, {
+                    refreshState.value = RefreshState.REFRESH_FAIL
+                    loadMoreState.value = LoadMoreState.LOAD_MORE_FAIL
                     stateViewModel.viewState.value = StateViewModel.State.STATE_ERROR
+                    stateViewModel.viewErrorContent.value = it.message.toString()
                 })
 
     }

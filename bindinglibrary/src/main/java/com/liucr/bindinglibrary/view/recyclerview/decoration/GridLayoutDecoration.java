@@ -31,7 +31,6 @@ public class GridLayoutDecoration extends RecyclerView.ItemDecoration {
         int spanCount = 0; //总列数
         int index = 0;  //item在瀑布流里面是第几列
         int position = parent.getChildAdapterPosition(view); //位置
-        int type = parent.getAdapter().getItemViewType(position);
         int spanSize = 0;
 
         if (parent.getLayoutManager() instanceof GridLayoutManager) {

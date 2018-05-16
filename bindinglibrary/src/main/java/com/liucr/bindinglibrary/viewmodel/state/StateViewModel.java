@@ -10,8 +10,8 @@ import android.support.annotation.IntDef;
 public class StateViewModel {
 
     public final MutableLiveData<Integer> viewState = new MutableLiveData<>();
-    public final MutableLiveData<Integer> viewEmptyStringRes = new MutableLiveData<>();
-    public final MutableLiveData<Integer> viewErrorStringRes = new MutableLiveData<>();
+    public final MutableLiveData<Object> viewEmptyContent = new MutableLiveData<>();
+    public final MutableLiveData<Object> viewErrorContent = new MutableLiveData<>();
 
     public final static class State {
         public final static int STATE_DEFAULT = 0;

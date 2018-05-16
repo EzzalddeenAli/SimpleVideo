@@ -11,7 +11,7 @@
 
         <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
 
-        <import type="com.liucr.bindinglibrary.viewmodel.state.StateViewModel" />
+        <import type="com.liucr.bindinglibrary.viewmodel.state.StateViewModel.State" />
 
         <import type="android.view.View" />
     </data>
@@ -32,22 +32,30 @@
             app:refreshListener="@{viewModel}"
             app:refreshState="@{viewModel.refreshState}">
 
-            <android.support.v7.widget.RecyclerView
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="@{viewModel.stateViewModel.viewState == StateViewModel.State.STATE_CONTENT ? View.VISIBLE : View.GONE}"
-                app:gridDecoration="@{5}"
-                app:itemBinding="@{viewModel.itemBinding}"
-                app:items="@{viewModel.items}"
-                app:layoutManager="@{LayoutManagers.grid(2)}">
+                android:layout_height="match_parent">
 
-            </android.support.v7.widget.RecyclerView>
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="@{viewModel.stateViewModel.viewState == State.STATE_CONTENT ? View.VISIBLE : View.GONE}"
+                    app:gridDecoration="@{5}"
+                    app:itemBinding="@{viewModel.itemBinding}"
+                    app:items="@{viewModel.items}"
+                    app:layoutManager="@{LayoutManagers.grid(2)}"
+                    tools:visibility="visible">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="@{viewModel.stateViewModel.viewState == StateViewModel.State.STATE_CONTENT ? View.GONE : View.VISIBLE}"
-                android:background="@color/colorAccent"/>
+                </android.support.v7.widget.RecyclerView>
+
+                <include
+                    layout="@layout/view_error"
+                    app:stateViewModel="@{viewModel.stateViewModel}" />
+
+                <include
+                    layout="@layout/view_error"
+                    app:stateViewModel="@{viewModel.stateViewModel}" />
+            </FrameLayout>
 
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 

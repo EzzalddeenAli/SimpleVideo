@@ -4,7 +4,8 @@ import android.databinding.BindingAdapter;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 
-
+import com.liucr.bindinglibrary.util.UiUtil;
+import com.liucr.bindinglibrary.view.recyclerview.decoration.GridLayoutDecoration;
 import com.liucr.bindinglibrary.view.recyclerview.listener.OnItemChildClickListener;
 import com.liucr.bindinglibrary.view.recyclerview.listener.OnItemChildLongClickListener;
 import com.liucr.bindinglibrary.view.recyclerview.listener.OnItemClickListener;
@@ -24,10 +25,10 @@ public class RecyclerViewBindingAdapter {
 
     // RecyclerView
     @SuppressWarnings("unchecked")
-    @BindingAdapter(value = {"itemBinding", "items",
-            "onItemChildClickListener", "itemChildClickIds",            //子View点击事件
-            "onItemChildLongClickListener", "itemChildLongClickIds",    //子View长按事件
-            "onItemClickListener", "onItemLongClickListener"},          //item点击事件，item长按事件
+    @BindingAdapter(value = {"app:itemBinding", "app:items",
+            "app:onItemChildClickListener", "app:itemChildClickIds",            //子View点击事件
+            "app:onItemChildLongClickListener", "app:itemChildLongClickIds",    //子View长按事件
+            "app:onItemClickListener", "app:onItemLongClickListener"},          //item点击事件，item长按事件
             requireAll = false)
     public static <T> void setAdapter(RecyclerView recyclerView,
                                       ItemBinding<T> itemBinding,
@@ -66,17 +67,24 @@ public class RecyclerViewBindingAdapter {
         });
     }
 
-    @BindingAdapter(value = {"animator"})
+    @BindingAdapter(value = {"app:animator"})
     public static void setItemDecoration(RecyclerView recyclerView, RecyclerView.ItemAnimator animator) {
         recyclerView.setItemAnimator(animator);
     }
 
-    @BindingAdapter(value = {"itemDecoration"})
+    @BindingAdapter(value = {"app:itemDecoration"})
     public static void addItemDecoration(RecyclerView recyclerView, RecyclerView.ItemDecoration itemDecoration) {
         recyclerView.addItemDecoration(itemDecoration);
     }
 
-    @BindingAdapter(value = "focusable")
+    @BindingAdapter(value = {"app:gridDecoration"})
+    public static void addItemDecoration(RecyclerView recyclerView, int gridDecoration) {
+        gridDecoration = (int) (gridDecoration * UiUtil.getScreenDensity());
+        GridLayoutDecoration gridLayoutDecoration = new GridLayoutDecoration(gridDecoration);
+        recyclerView.addItemDecoration(gridLayoutDecoration);
+    }
+
+    @BindingAdapter(value = "app:focusable")
     public static void setFocusable(RecyclerView recyclerView, boolean focusable) {
         recyclerView.setFocusable(focusable);
     }

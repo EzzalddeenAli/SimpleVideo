@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="videoViewModule"
+            type="cn.liucr.simplevideo.module.video.viewmodel.VideoViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--播放窗口-->
+        <cn.liucr.simplevideo.module.video.view.FinalVideoLayout
+            android:id="@+id/videoLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#000000"
+            android:clickable="true"
+            android:transitionName="aaaa"
+            android:onClick="@{videoViewModule.clickVideoLayout}">
+
+            <com.sohuvideo.api.SohuScreenView
+                android:id="@+id/videoView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                app:sohuvideo_player="@{videoViewModule.mSohuVideoPlayer}" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/video_cover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="@{videoViewModule.isShowCover ? View.VISIBLE : View.GONE}"
+                app:image="@{videoViewModule.coverImageUrl}" />
+
+            <FrameLayout
+                android:id="@+id/mediaControllerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </FrameLayout>
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/center_start_play"
+                android:onClick="@{videoViewModule.clickCenterPlay}"
+                android:visibility="@{videoViewModule.isShowCenterPlay ? View.VISIBLE : View.GONE}" />
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="@{videoViewModule.isShowLoading ? View.VISIBLE : View.GONE}"
+                app:indicator="BallClipRotatePulse"
+                app:indicator_color="@color/colorAccent" />
+
+        </cn.liucr.simplevideo.module.video.view.FinalVideoLayout>
+
+        <RelativeLayout
+            android:id="@+id/bottomLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/layout_bottom_loading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:indeterminateDrawable="@drawable/progress_bar_fox_tail" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_bottom_fail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_network" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="netError"
+                    android:textColor="@color/cardview_shadow_end_color"
+                    android:textSize="32px" />
+
+                <Button
+                    android:id="@+id/fail_try_btn"
+                    android:layout_width="100px"
+                    android:layout_height="100px"
+                    android:layout_marginTop="20dp"
+                    android:alpha="0.6"
+                    android:gravity="center"
+                    android:text="button_text_try_again"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="32px" />
+            </LinearLayout>
+
+            <ScrollView
+                android:id="@+id/layout_scrollview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+                <!--底部专辑信息及专辑分集信息-->
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <include
+                        android:id="@+id/layout_bottom_sohu_make"
+                        layout="@layout/layout_bottom_sohu_make"
+                        android:visibility="gone" />
+
+                    <include
+                        android:id="@+id/layout_bottom_pgc"
+                        layout="@layout/layout_bottom_pgc"
+                        android:visibility="gone" />
+                </FrameLayout>
+            </ScrollView>
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

@@ -3,14 +3,17 @@ package cn.liucr.simplevideo.module.main.viewmodel
 import android.annotation.SuppressLint
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData
+import android.content.Intent
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableList
 import cn.liucr.simplevideo.BR
 import cn.liucr.simplevideo.R
+import cn.liucr.simplevideo.constant.Constant
 import cn.liucr.simplevideo.http.SohuHttpManager
 import cn.liucr.simplevideo.mode.sohu.Channel
 import cn.liucr.simplevideo.mode.sohu.FirstCate
 import cn.liucr.simplevideo.module.common.viewmodel.RecyclerViewModel
+import cn.liucr.simplevideo.module.video.VideoActivity
 import com.liucr.bindinglibrary.view.smartrefreshlayout.state.LoadMoreState
 import com.liucr.bindinglibrary.view.smartrefreshlayout.state.RefreshState
 import com.liucr.bindinglibrary.viewmodel.state.StateViewModel
@@ -28,6 +31,8 @@ class CategoryViewModel(application: Application) : RecyclerViewModel(applicatio
 
     lateinit var firstCate: FirstCate
     private var channelVideoList: ObservableList<Channel.ChannelVideo> = ObservableArrayList()
+
+    val startActivity: MutableLiveData<Intent> = MutableLiveData()
 
     val stateViewModel: StateViewModel = StateViewModel()
 
@@ -58,6 +63,12 @@ class CategoryViewModel(application: Application) : RecyclerViewModel(applicatio
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {
         getVideo()
+    }
+
+    override fun onItemClick(position: Int) {
+        super.onItemClick(position)
+        val intent = Intent().putExtra(Constant.CHANNEL_VIDEO, channelVideoList[position])
+        startActivity.value = intent
     }
 
     @SuppressLint("CheckResult")

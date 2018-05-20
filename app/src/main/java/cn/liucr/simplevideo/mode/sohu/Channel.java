@@ -3,6 +3,7 @@ package cn.liucr.simplevideo.mode.sohu;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * Created by liucr on 2017/3/15.
  */
 
-public class Channel implements Parcelable {
+public class Channel implements Serializable {
 
     private int count;
     private List<ChannelVideo> videos;
@@ -39,7 +40,7 @@ public class Channel implements Parcelable {
                 '}';
     }
 
-    public final static class ChannelVideo implements  Parcelable{
+    public final static class ChannelVideo implements Serializable {
 
         /**
          * is_album : 1
@@ -437,134 +438,5 @@ public class Channel implements Parcelable {
                     ", hor_w8_pic='" + hor_w8_pic + '\'' +
                     '}';
         }
-
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeInt(this.is_album);
-            dest.writeInt(this.is_trailer);
-            dest.writeInt(this.aid);
-            dest.writeString(this.album_name);
-            dest.writeString(this.album_desc);
-            dest.writeInt(this.cid);
-            dest.writeString(this.cate_code);
-            dest.writeInt(this.is_sohuown);
-            dest.writeInt(this.is_original_code);
-            dest.writeInt(this.is_super_code);
-            dest.writeString(this.ver_high_pic);
-            dest.writeString(this.hor_high_pic);
-            dest.writeString(this.hor_pic);
-            dest.writeString(this.ver_pic);
-            dest.writeString(this.tip);
-            dest.writeInt(this.update_status);
-            dest.writeInt(this.latest_video_count);
-            dest.writeInt(this.total_video_count);
-            dest.writeInt(this.year);
-            dest.writeInt(this.area_id);
-            dest.writeInt(this.language_id);
-            dest.writeString(this.area);
-            dest.writeString(this.language);
-            dest.writeDouble(this.score);
-            dest.writeInt(this.play_count);
-            dest.writeString(this.director);
-            dest.writeString(this.main_actor);
-            dest.writeString(this.update_time);
-            dest.writeInt(this.time_length);
-            dest.writeInt(this.vid);
-            dest.writeString(this.video_name);
-            dest.writeString(this.video_desc);
-            dest.writeInt(this.is_download);
-            dest.writeInt(this.site);
-            dest.writeString(this.hor_w8_pic);
-        }
-
-        public ChannelVideo() {
-        }
-
-        protected ChannelVideo(Parcel in) {
-            this.is_album = in.readInt();
-            this.is_trailer = in.readInt();
-            this.aid = in.readInt();
-            this.album_name = in.readString();
-            this.album_desc = in.readString();
-            this.cid = in.readInt();
-            this.cate_code = in.readString();
-            this.is_sohuown = in.readInt();
-            this.is_original_code = in.readInt();
-            this.is_super_code = in.readInt();
-            this.ver_high_pic = in.readString();
-            this.hor_high_pic = in.readString();
-            this.hor_pic = in.readString();
-            this.ver_pic = in.readString();
-            this.tip = in.readString();
-            this.update_status = in.readInt();
-            this.latest_video_count = in.readInt();
-            this.total_video_count = in.readInt();
-            this.year = in.readInt();
-            this.area_id = in.readInt();
-            this.language_id = in.readInt();
-            this.area = in.readString();
-            this.language = in.readString();
-            this.score = in.readDouble();
-            this.play_count = in.readInt();
-            this.director = in.readString();
-            this.main_actor = in.readString();
-            this.update_time = in.readString();
-            this.time_length = in.readInt();
-            this.vid = in.readInt();
-            this.video_name = in.readString();
-            this.video_desc = in.readString();
-            this.is_download = in.readInt();
-            this.site = in.readInt();
-            this.hor_w8_pic = in.readString();
-        }
-
-        public static final Creator<ChannelVideo> CREATOR = new Creator<ChannelVideo>() {
-            @Override
-            public ChannelVideo createFromParcel(Parcel source) {
-                return new ChannelVideo(source);
-            }
-
-            @Override
-            public ChannelVideo[] newArray(int size) {
-                return new ChannelVideo[size];
-            }
-        };
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.count);
-        dest.writeList(this.videos);
-    }
-
-    public Channel() {
-    }
-
-    protected Channel(Parcel in) {
-        this.count = in.readInt();
-        this.videos = new ArrayList<ChannelVideo>();
-        in.readList(this.videos, ChannelVideo.class.getClassLoader());
-    }
-
-    public static final Creator<Channel> CREATOR = new Creator<Channel>() {
-        @Override
-        public Channel createFromParcel(Parcel source) {
-            return new Channel(source);
-        }
-
-        @Override
-        public Channel[] newArray(int size) {
-            return new Channel[size];
-        }
-    };
 }

@@ -15,10 +15,6 @@ class SimpleVideoApp : Application() {
     override fun onCreate() {
         super.onCreate()
         UiUtil.init(this)
-        ////test
-        ////devolution
-        ////测试1分支
-        ////测试2分支
     }
 
 }

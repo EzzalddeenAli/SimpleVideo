@@ -34,6 +34,9 @@
             android:name=".module.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity android:name=".module.video.VideoActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <!-- 应用统计服务 -->
         <service
             android:name="com.sohuvideo.player.statistic.LogService"

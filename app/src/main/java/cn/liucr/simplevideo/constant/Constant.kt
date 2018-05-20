@@ -6,5 +6,6 @@ package cn.liucr.simplevideo.constant
 object Constant {
 
     const val FIRST_CATE = "FirstCate"
+    const val CHANNEL_VIDEO = "ChannelVideo"
 
 }

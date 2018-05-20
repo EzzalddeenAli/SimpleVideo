@@ -16,6 +16,7 @@ class SimpleVideoApp : Application() {
         super.onCreate()
         UiUtil.init(this)
         ////test
+        ////test分支
     }
 
 }

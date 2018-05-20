@@ -17,6 +17,7 @@ class SimpleVideoApp : Application() {
         UiUtil.init(this)
         ////test
         ////devolution
+        ////测试1分支
         ////测试2分支
     }
 

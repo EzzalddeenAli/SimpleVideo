@@ -15,6 +15,7 @@ class SimpleVideoApp : Application() {
     override fun onCreate() {
         super.onCreate()
         UiUtil.init(this)
+        ////test
     }
 
 }

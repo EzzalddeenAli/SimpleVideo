@@ -10,7 +10,6 @@ import cn.liucr.simplevideo.mode.sohu.FirstCate
 import cn.liucr.simplevideo.module.main.viewmodel.CategoryViewModel
 import cn.liucr.simplevideo.module.video.VideoActivity
 import com.liucr.mvvmhelper.base.BaseFragment
-import com.liucr.mvvmhelper.utils.LogUtil
 
 /**
  * Created by liucr on 2018/5/14.
@@ -46,7 +45,7 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
     }
 
     override fun initView() {
-        LogUtil.e(categoryViewModel!!.firstCate.cate_name + "  >>  " + this.toString() + "    " + this.lifecycle.currentState)
+
     }
 
     companion object {

@@ -35,10 +35,19 @@ public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment {
 
     public abstract int contentView();
 
+    /**
+     * 初始化ViewModel
+     */
     public abstract void initViewModel();
 
+    /**
+     * 数据绑定
+     */
     public abstract void dataBinding();
 
+    /**
+     * 初始化控件
+     */
     public abstract void initView();
 
     protected <T extends BaseViewModel> T getViewModel(@NonNull Class<T> modelClass, @Nullable ViewModelProvider.Factory factory) {

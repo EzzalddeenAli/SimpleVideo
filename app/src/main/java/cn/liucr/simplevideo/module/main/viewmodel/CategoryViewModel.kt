@@ -13,10 +13,10 @@ import cn.liucr.simplevideo.http.SohuHttpManager
 import cn.liucr.simplevideo.mode.sohu.Channel
 import cn.liucr.simplevideo.mode.sohu.FirstCate
 import cn.liucr.simplevideo.module.common.viewmodel.RecyclerViewModel
-import cn.liucr.simplevideo.module.video.VideoActivity
 import com.liucr.bindinglibrary.view.smartrefreshlayout.state.LoadMoreState
 import com.liucr.bindinglibrary.view.smartrefreshlayout.state.RefreshState
 import com.liucr.bindinglibrary.viewmodel.state.StateViewModel
+import com.liucr.mvvmhelper.event.SingleLiveEvent
 import com.liucr.mvvmhelper.utils.LogUtil
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
@@ -29,10 +29,12 @@ import io.reactivex.schedulers.Schedulers
  */
 class CategoryViewModel(application: Application) : RecyclerViewModel(application), OnLoadMoreListener, OnRefreshListener {
 
+    val TAG: String = this.toString()
+
     lateinit var firstCate: FirstCate
     private var channelVideoList: ObservableList<Channel.ChannelVideo> = ObservableArrayList()
 
-    val startActivity: MutableLiveData<Intent> = MutableLiveData()
+    val startActivity: SingleLiveEvent<Intent> = SingleLiveEvent()
 
     val stateViewModel: StateViewModel = StateViewModel()
 
@@ -44,7 +46,6 @@ class CategoryViewModel(application: Application) : RecyclerViewModel(applicatio
     override fun onCreate() {
         super.onCreate()
         if (channelVideoList.size == 0) {
-            getVideo()
             refreshState.value = RefreshState.REFRESH_TRIGGER
         }
     }
@@ -69,6 +70,7 @@ class CategoryViewModel(application: Application) : RecyclerViewModel(applicatio
         super.onItemClick(position)
         val intent = Intent().putExtra(Constant.CHANNEL_VIDEO, channelVideoList[position])
         startActivity.value = intent
+        LogUtil.e(this.toString() + "   " + startActivity.toString())
     }
 
     @SuppressLint("CheckResult")

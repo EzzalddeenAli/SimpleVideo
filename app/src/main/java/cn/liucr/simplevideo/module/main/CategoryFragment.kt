@@ -10,6 +10,7 @@ import cn.liucr.simplevideo.mode.sohu.FirstCate
 import cn.liucr.simplevideo.module.main.viewmodel.CategoryViewModel
 import cn.liucr.simplevideo.module.video.VideoActivity
 import com.liucr.mvvmhelper.base.BaseFragment
+import com.liucr.mvvmhelper.utils.LogUtil
 
 /**
  * Created by liucr on 2018/5/14.
@@ -24,24 +25,28 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
     }
 
     override fun initViewModel() {
+
         if (categoryViewModel == null) {
             val firstCate = arguments?.getSerializable(Constant.FIRST_CATE)
             categoryViewModel = getViewModel(CategoryViewModel::class.java, null)
             categoryViewModel?.firstCate = firstCate as FirstCate
         }
-
-        categoryViewModel?.startActivity?.observe(this, Observer<Intent> {
-            it?.setClass(context, VideoActivity::class.java)
-            it?.let { startActivity(it) }
-        })
     }
 
     override fun dataBinding() {
+
         binding.viewModel = categoryViewModel
+
+        categoryViewModel?.startActivity?.observe(this, Observer<Intent> {
+            it?.let {
+                it.setClass(context, VideoActivity::class.java)
+                startActivity(it)
+            }
+        })
     }
 
     override fun initView() {
-
+        LogUtil.e(categoryViewModel!!.firstCate.cate_name + "  >>  " + this.toString() + "    " + this.lifecycle.currentState)
     }
 
     companion object {
